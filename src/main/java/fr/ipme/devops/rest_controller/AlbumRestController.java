@@ -6,10 +6,12 @@ import fr.ipme.devops.service.AlbumService;
 import fr.ipme.devops.views.Views;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/album")
@@ -26,5 +28,11 @@ public class AlbumRestController {
     @JsonView(Views.AlbumResponseView.class)
     public List<Album> getAlbumList() {
         return this.albumService.getAll();
+    }
+
+    @GetMapping(path = "{id}")
+    @JsonView(Views.AlbumResponseView.class)
+    public Optional<Album> getAlbumById(@PathVariable Long id) {
+        return albumService.getAlbumById(id);
     }
 }
